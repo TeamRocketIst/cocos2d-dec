@@ -36,24 +36,12 @@ def main():
     parser.add_argument("path", metavar="path", type=str, help="Path to the file or folder")
     parser.add_argument("-k", '--key',metavar='key', type=str, required=True, help="XXTEA Key")
     parser.add_argument("-s", '--signature', metavar='signature', type=str, required=True, help="Signature")
-    #parser.add_argument("-D", '--directory', action='store_true', type=str, help="Indicate that the provided path is a directory")
     args = parser.parse_args()
     my_lib = ctypes.CDLL('lib/libext_xxtea.dylib')
     xxtea_decrypt = my_lib.xxtea_decrypt
     xxtea_decrypt.argtypes = [c_char_p, c_ulong, c_char_p, c_ulong, ctypes.POINTER(c_ulong)]
     xxtea_decrypt.restype = ctypes.POINTER(ctypes.c_ubyte)
     decrypt_folder(args.path, args.signature.encode(), args.key.encode(), xxtea_decrypt)
-    """sign_size = 2
-    with open('/Users/camposricardo/Reverse/apps/com.keudewmz.royal/main.luac', 'rb') as f:
-        data = f.read()[sign_size:]
-        data_len = len(data)
-        key = b"cocos2d_lua_js"
-        key_len = len(key)
-        ret_len = ctypes.c_ulong()
-        result = xxtea_decrypt(data, data_len, key, key_len, ctypes.byref(ret_len))
-        decrypted_data = ctypes.string_at(result, ret_len.value)
-        with open('/Users/camposricardo/Reverse/apps/com.keudewmz.royal/main.lua', 'wb') as f:
-            f.write(decrypted_data)"""
 
 if __name__ == '__main__':
     main()

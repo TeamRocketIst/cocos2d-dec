@@ -11,7 +11,7 @@ def decrypt_file(file_path, signature, xxtea_key, xxtea_decrypt):
         if len(data) == len(signature):
             with open(file_path, 'wb'= as f:
                 f.write(b"")
-            print("\033[1;32m %s \033[0m" % file_path, end="\n"
+            print("\033[1;32m %s \033[0m" % file_path, end="\n")
             return
         data = data[sign_size:]
         data_len = len(data)

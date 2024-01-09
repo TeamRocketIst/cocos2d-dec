@@ -31,7 +31,7 @@ def decrypt_file(file_path, xxtea_key, xxtea_decrypt):
             if decrypted_data[:2] == b"PK":
                 fio = BytesIO(decrypted_data)
                 fzip = zipfile.ZipFile(file=fio)
-                decrypted_data = fzip.read(fzip.namelist()[0]).decode("utf-8")
+                decrypted_data = fzip.read(fzip.namelist()[0])
                 with open(file_path.replace('.jsc','.js'), 'wb') as f:
                     print("\033[96m %s \033[0m" % ("Beautifying "), end="\n")
                     beautified = beautify_js(decrypted_data)
@@ -47,7 +47,7 @@ def decrypt_file(file_path, xxtea_key, xxtea_decrypt):
                 try:
                     with open(file_path.replace('.jsc','.js'), 'wb') as f:
                         print("\033[96m %s \033[0m" % ("Beautifying "), end="\n")
-                        beautified = beautify_js(decrypted_data.decode('utf-8'))
+                        beautified = beautify_js(decrypted_data)
                         f.write(bytes(beautified))
                 except UnicodeDecodeError:
                     print("\033[1;31m %s \033[0m" % ("Wrong key maybe ?? "+file_path), end="\n")

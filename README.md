@@ -69,7 +69,7 @@ optional arguments:
                         Xor-Key
   -bs, --beautify       Enables beautifying!
 
-# for xxteab decryption only
+# for xxtea decryption only
 $ python js_xxtea_decrypt.py apktool_out -k c79f28ea-34c1-42
  Decrypting apktool_out/assets/assets/internal/index.jsc
  Beautifying
@@ -85,9 +85,9 @@ $ python js_xxtea_decrypt.py apktool_out -k c79f28ea-34c1-42
  apktool_out/assets/src/cocos2d-jsb.js
 
 # for xor or xor+xxtea (signature must be in hex to support unprintable bytes)
-python js_xxtea_decrypt.py -k 'Za810xwef83lsa0A' -xs "$(echo -en 'netease\x01\x01\x01\xef' | xxd -p)" -xk 'Za810xwef83lsa0A' enshtak_apktool/assets
+$ python js_xxtea_decrypt.py -k Za810xwef83lsa0A -xs "$(echo -en 'netease\x01\x01\x01\xef' | xxd -p)" -xk Wa810xwef83lsa0A enshtak_apktool/assets
 
-# without using echo or xxd 
-python js_xxtea_decrypt.py -k Za810xwef83lsa0A -xs 6e657465617365010101ef -xk Za810xwef83lsa0A enshtak_apktool/assets
+# without using echo or xxd (signature must be in hex to support unprintable bytes)
+$ python js_xxtea_decrypt.py -k Za810xwef83lsa0A -xs 6e657465617365010101ef -xk Wa810xwef83lsa0A enshtak_apktool/assets
 
 ```

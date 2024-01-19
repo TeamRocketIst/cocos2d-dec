@@ -1,4 +1,4 @@
-import ctypes, argparse, os, gzip, jsbeautifier, zlib
+import ctypes, argparse, os, gzip, jsbeautifier, zlib, binascii
 from ctypes import c_char_p, c_ulong
 from io import BytesIO
 import zipfile 
@@ -19,9 +19,11 @@ def beautify_js(data):
 def xor_decrypt(data):
     data_out = bytearray()
     sign = args.xor_signature if args.xor_signature else ""
+    sign = binascii.unhexlify(sign)#bytes([ord(char) for char in sign])
+    #print(bytes(sign))
     # ignoring for now the versions that don't have signature
-    if sign != "" and (data.startswith(sign.encode()) or data.endswith(sign.encode())):
-        data = data[len(sign):] if data.startswith(sign.encode()) else data[:-len(sign)]
+    if sign != "" and (data.startswith(sign) or data.endswith(sign)):
+        data = data[len(sign):] if data.startswith(sign) else data[:-len(sign)]
         for i,c in enumerate(data):
             data_out.append(c ^ ord(args.xor_key[i% len(args.xor_key)]))
     else:
@@ -91,7 +93,7 @@ def main():
     parser = argparse.ArgumentParser(description='Decrypt files or folder using XXTEA.')
     parser.add_argument("path", metavar="path", type=str, help="Path to the file or folder")
     parser.add_argument("-k", '--key',metavar='key', type=str, required=True, help="XXTEA Key")
-    parser.add_argument("-xs", '--xor-signature', metavar='xor-signature', type=str, required=False, help="Signature")
+    parser.add_argument("-xs", '--xor-signature', metavar='xor-signature', type=str, required=False, help="Signature in hex")
     parser.add_argument("-xk", '--xor-key', metavar='xor-key', type=str, required=False, help="Xor-Key")
     parser.add_argument("-bs", '--beautify', action="store_true", required=False, help="Enables beautifying!")
 

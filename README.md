@@ -71,18 +71,6 @@ optional arguments:
 
 # for xxtea decryption only
 $ python js_xxtea_decrypt.py apktool_out -k c79f28ea-34c1-42
- Decrypting apktool_out/assets/assets/internal/index.jsc
- Beautifying
- apktool_out/assets/assets/internal/index.js
- Decrypting apktool_out/assets/assets/main/index.jsc
- Beautifying
- apktool_out/assets/assets/main/index.js
- Decrypting apktool_out/assets/src/settings.jsc
- Beautifying
- apktool_out/assets/src/settings.js
- Decrypting apktool_out/assets/src/cocos2d-jsb.jsc
- Beautifying
- apktool_out/assets/src/cocos2d-jsb.js
 
 # for xor or xor+xxtea (signature must be in hex to support unprintable bytes)
 $ python js_xxtea_decrypt.py -k Za810xwef83lsa0A -xs "$(echo -en 'netease\x01\x01\x01\xef' | xxd -p)" -xk Wa810xwef83lsa0A enshtak_apktool/assets

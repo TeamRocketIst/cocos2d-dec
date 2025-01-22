@@ -43,7 +43,7 @@ def main():
     parser.add_argument("-s", '--signature', metavar='signature', type=str, required=True, help="Signature")
     args = parser.parse_args()
     my_lib = ctypes.CDLL(os.path.join(os.path.dirname(os.path.abspath(__file__)),'lib/libext_xxtea'\
-        +".so" if platform.system() == "Linux" else ".dynlib" if platform.system()== 'Darwin' else ".so"))
+        +".so" if platform.system() == "Linux" else "lib/libext_xxtea.dylib" if platform.system()== 'Darwin' else "lib/libext_xxtea.so"))
     xxtea_decrypt = my_lib.xxtea_decrypt
     xxtea_decrypt.argtypes = [c_char_p, c_ulong, c_char_p, c_ulong, ctypes.POINTER(c_ulong)]
     xxtea_decrypt.restype = ctypes.POINTER(ctypes.c_ubyte)
